@@ -289,7 +289,7 @@ display, by specifying its ID:
  $
 .B "sigrok\-cli \-i <file.sr> \-P i2c,i2cfilter,edid -A i2c"
 .sp
-If a protocol decoder has multiple annotation formats, you can also specify
+If a protocol decoder has multiple annotation classes, you can also specify
 which of them to show by specifying its short description like this:
 .sp
  $
@@ -298,12 +298,37 @@ which of them to show by specifying its short description like this:
 .B "              \-A i2c=rawhex"
 .sp
 You can also select multiple protocol decoders, with an optional selected
-annotation format each, by separating them with commas:
+annotation classes each, by separating them with commas:
 .sp
  $
 .B "sigrok\-cli \-i <file.sr> \-P i2c,i2cfilter,edid"
 .br
 .B "              \-A i2c=rawhex,edid"
+.TP
+.BR "\-M, \-\-protocol\-decoder\-meta " <meta\ specification>
+When given, show protocol decoder meta output instead of annotations.
+The argument is the name of the decoder whose meta output to show. Not
+every decoder generates this.
+.TP
+.BR "\-B, \-\-protocol\-decoder\-binary " <binary\ specification>
+When given, decoder raw data is written to stdout instead of annotations
+or meta output.  No other information is printed to stdout, so this is
+suitable for piping into other programs or saving to a file.
+
+Protocol decoders that support binary output publish a list of binary
+classes, for example the SPI decoder might have "MOSI" and "MISO". To
+select MOSI for output, the argument to this option would be:
+.sp
+ $
+.B "sigrok\-cli \-i <file.sr> \-B spi=mosi"
+.br
+.sp
+If only the protocol decoder is specified, without class, all classes are
+written to stdout:
+.sp
+ $
+.B "sigrok\-cli \-i <file.sr> \-B spi"
+.br
 .TP
 .BR "\-l, \-\-loglevel " <level>
 Set the libsigrok and libsigrokdecode loglevel. At the moment \fBsigrok-cli\fP
