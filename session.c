@@ -246,7 +246,7 @@ void datafeed_in(const struct sr_dev_inst *sdi,
 			/* Saving to a session file. */
 			if (rcvd_samples_logic == 0) {
 				/* First packet with logic data, init session file. */
-				channels = g_malloc(sizeof(char *) * g_slist_length(sdi->channels));
+				channels = g_malloc(sizeof(char *) * (g_slist_length(sdi->channels)+1));
 				for (i = 0, l = sdi->channels; l; l = l->next) {
 					ch = l->data;
 					if (ch->type == SR_CHANNEL_LOGIC)
